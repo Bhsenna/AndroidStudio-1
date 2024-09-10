@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Contador</string>
+    <string name="button">Button</string>
+    <string name="menor">Menor</string>
+    <string name="maior">Maior</string>
 </resources>
