@@ -3,4 +3,6 @@
     <string name="button">Button</string>
     <string name="menor">Menor</string>
     <string name="maior">Maior</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="sortear">Sortear</string>
 </resources>

@@ -22,7 +22,6 @@ public class MainActivity extends Activity {
         TextView textView = findViewById(R.id.textView);
         EditText editTextInicial = findViewById(R.id.editTextNumInicial);
         EditText editTextFinal = findViewById(R.id.editTextNumFinal);
-        mybutton.setText("Sortear");
         mybutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
