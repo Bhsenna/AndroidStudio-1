@@ -12,15 +12,22 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class SimplePaint extends View {
+    ArrayList<Path> lPaths;
+    ArrayList<Paint> lPaints;
     Path mPath;
     Paint mPaint;
 
     public SimplePaint(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        mPaint = new Paint();
+        lPaths = new ArrayList<Path>();
+        lPaints = new ArrayList<Paint>();
+
         mPath = new Path();
+        mPaint = new Paint();
 
         mPaint.setColor(Color.BLACK);
         mPaint.setStrokeWidth(6f);
@@ -31,6 +38,9 @@ public class SimplePaint extends View {
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
+        for(int i = 0; i < lPaths.size(); i++) {
+            canvas.drawPath(lPaths.get(i), lPaints.get(i));
+        }
         canvas.drawPath(mPath, mPaint);
     }
 
@@ -49,6 +59,17 @@ public class SimplePaint extends View {
                 invalidate();
                 return (true);
             case MotionEvent.ACTION_UP:
+                lPaths.add(mPath);
+                lPaints.add(mPaint);
+
+                int currentColor = mPaint.getColor();
+                mPath = new Path();
+                mPaint = new Paint();
+                mPaint.setColor(currentColor);
+                mPaint.setStrokeWidth(6f);
+                mPaint.setAntiAlias(true);
+                mPaint.setStyle(Paint.Style.STROKE);
+
                 break;
         }
 
