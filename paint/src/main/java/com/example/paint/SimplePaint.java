@@ -35,6 +35,14 @@ public class SimplePaint extends View {
         mPaint.setStyle(Paint.Style.STROKE);
     }
 
+    public void removeUltimaCamada() {
+        if (lPaths.size() > 0) {
+            lPaths.remove(lPaths.size() - 1);
+            lPaints.remove(lPaints.size() - 1);
+        }
+        invalidate();
+    }
+
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);

@@ -12,20 +12,28 @@ import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
 public class MainActivity extends AppCompatActivity {
-    Button button;
+    Button btn_cores;
+    Button btn_volta;
     SimplePaint simplePaint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = findViewById(R.id.button);
+        btn_cores = findViewById(R.id.btn_cores);
+        btn_volta = findViewById(R.id.btn_volta);
         simplePaint = findViewById(R.id.simplepaint);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        btn_cores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 abreColorPicker();
+            }
+        });
+        btn_volta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                simplePaint.removeUltimaCamada();
             }
         });
     }
