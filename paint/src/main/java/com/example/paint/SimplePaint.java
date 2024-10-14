@@ -23,8 +23,8 @@ public class SimplePaint extends View {
     public SimplePaint(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        lPaths = new ArrayList<Path>();
-        lPaints = new ArrayList<Paint>();
+        lPaths = new ArrayList<>();
+        lPaints = new ArrayList<>();
 
         mPath = new Path();
         mPaint = new Paint();
@@ -36,7 +36,7 @@ public class SimplePaint extends View {
     }
 
     public void removeUltimaCamada() {
-        if (lPaths.size() > 0) {
+        if (!lPaths.isEmpty()) {
             lPaths.remove(lPaths.size() - 1);
             lPaints.remove(lPaints.size() - 1);
         }
