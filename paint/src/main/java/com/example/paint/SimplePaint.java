@@ -15,41 +15,50 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class SimplePaint extends View {
-    ArrayList<Path> lPaths;
-    ArrayList<Paint> lPaints;
-    Path mPath;
-    Paint mPaint;
+    ArrayList<Camada> layers;
 
     public SimplePaint(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        lPaths = new ArrayList<>();
-        lPaints = new ArrayList<>();
-
-        mPath = new Path();
-        mPaint = new Paint();
-
-        mPaint.setColor(Color.BLACK);
-        mPaint.setStrokeWidth(6f);
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.STROKE);
+        layers = new ArrayList<Camada>();
+        layers.add(new Camada(initialSetupPaint()));
     }
 
-    public void removeUltimaCamada() {
-        if (!lPaths.isEmpty()) {
-            lPaths.remove(lPaths.size() - 1);
-            lPaints.remove(lPaints.size() - 1);
+    public Paint initialSetupPaint() {
+        Paint lPaint = new Paint();
+        lPaint.setStrokeWidth(5f);
+        lPaint.setColor(Color.RED);
+        lPaint.setStyle(Paint.Style.STROKE);
+        return lPaint;
+    }
+
+    public void changeColor(int color) {
+        layers.add(new Camada(getCurrentLayer().paint));
+        getCurrentLayer().paint.setColor(color);
+    }
+
+    public void changeStrokeWidth(int width) {
+        layers.add(new Camada(getCurrentLayer().paint));
+        getCurrentLayer().paint.setStrokeWidth(width);
+    }
+
+    public void removeLastLayer() {
+        if (!layers.isEmpty()) {
+            Paint lastPaint = getCurrentLayer().paint;
+
+            layers.remove(getCurrentLayer());
+
+            layers.add(new Camada(lastPaint));
+            invalidate();
         }
-        invalidate();
     }
 
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
-        for(int i = 0; i < lPaths.size(); i++) {
-            canvas.drawPath(lPaths.get(i), lPaints.get(i));
+        for(Camada camada : layers) {
+            canvas.drawPath(camada.path, camada.paint);
         }
-        canvas.drawPath(mPath, mPaint);
     }
 
     @Override
@@ -59,29 +68,20 @@ public class SimplePaint extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mPath.moveTo(x, y);
-                invalidate();
-                return (true);
+                getCurrentLayer().path.moveTo(x, y);
+                return true;
             case MotionEvent.ACTION_MOVE:
-                mPath.lineTo(x, y);
-                invalidate();
-                return (true);
+                getCurrentLayer().path.lineTo(x, y);
             case MotionEvent.ACTION_UP:
-                lPaths.add(mPath);
-                lPaints.add(mPaint);
-
-                int currentColor = mPaint.getColor();
-                mPath = new Path();
-                mPaint = new Paint();
-                mPaint.setColor(currentColor);
-                mPaint.setStrokeWidth(6f);
-                mPaint.setAntiAlias(true);
-                mPaint.setStyle(Paint.Style.STROKE);
-
                 break;
+            default:
+                return false;
         }
-
+        invalidate();
         return super.onTouchEvent(event);
     }
 
+    public Camada getCurrentLayer() {
+        return layers.get(layers.size() - 1);
+    }
 }

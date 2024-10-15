@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         btn_volta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                simplePaint.removeUltimaCamada();
+                simplePaint.removeLastLayer();
             }
         });
     }
@@ -63,6 +63,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setColor(ColorEnvelope envelope) {
-        simplePaint.mPaint.setColor(envelope.getColor());
+        simplePaint.changeColor(envelope.getColor());
     }
 }
