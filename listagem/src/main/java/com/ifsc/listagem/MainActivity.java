@@ -12,29 +12,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
-    String[] nomes = new String[] {"Picareta", "Jhones Dark", "Camili","Daniela","Thoninho"};
-    ListView listView;
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listView=findViewById(R.id.listView);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayAdapter<String> adapter =new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                nomes
-        );
         PlanetaDao planetaDao = new PlanetaDao();
-        PlanetaAdapter planetaAdapter = new PlanetaAdapter(this, R.layout.planeta_item, planetaDao);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this,Integer.toString(position),Toast.LENGTH_LONG).show();
-            }
-        });
+        PlanetaAdapterRecyclerView padapterRV = new PlanetaAdapterRecyclerView(this, R.layout.planeta_item, planetaDao.getAllPlanetas());
+
+        recyclerView.setAdapter(padapterRV);
     }
 }

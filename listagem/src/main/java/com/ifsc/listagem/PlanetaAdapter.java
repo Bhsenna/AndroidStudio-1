@@ -34,6 +34,6 @@ public class PlanetaAdapter extends ArrayAdapter<Planeta> {
         iv.setImageResource(p.foto);
         tv.setText(p.nome);
 
-        return super.getView(position, convertView, parent);
+        return view;
     }
 }
