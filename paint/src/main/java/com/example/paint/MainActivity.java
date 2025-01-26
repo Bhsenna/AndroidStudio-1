@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.skydoves.colorpickerview.ColorEnvelope;
@@ -16,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btn_cores;
     ImageButton btn_volta;
     ImageButton btn_finge;
+    ImageButton btn_linha;
     ImageButton btn_quadr;
     ImageButton btn_circu;
     SimplePaint simplePaint;
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         btn_cores = findViewById(R.id.btn_cores);
         btn_volta = findViewById(R.id.btn_volta);
         btn_finge = findViewById(R.id.btn_finge);
+        btn_linha = findViewById(R.id.btn_linha);
         btn_quadr = findViewById(R.id.btn_quadr);
         btn_circu = findViewById(R.id.btn_circu);
         simplePaint = findViewById(R.id.simplepaint);
@@ -49,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
                 simplePaint.changeShape(SimplePaint.Shape.FINGER);
             }
         });
+        btn_linha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                simplePaint.changeShape(SimplePaint.Shape.LINE);
+            }
+        });
         btn_quadr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         new ColorPickerDialog.Builder(this)
             .setTitle("ColorPicker Dialog")
             .setPreferenceName("MyColorPickerDialog")
-            .setPositiveButton("Confirm",
+            .setPositiveButton("Confirmar",
                 new ColorEnvelopeListener() {
                     @Override
                     public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {

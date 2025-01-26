@@ -16,26 +16,31 @@ public class PlanetaAdapterRecyclerView extends RecyclerView.Adapter<PlanetaAdap
     Context mContext;
     int mResource;
     List<Planeta> mListPlaneta;
+
     public PlanetaAdapterRecyclerView(Context context, int resource, List<Planeta> objs) {
         mContext = context;
         mResource = resource;
         mListPlaneta = objs;
     }
+
     @Override
     public PlanetaVH onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = View.inflate(mContext, mResource, null);
         return new PlanetaVH(v);
     }
+
     @Override
     public void onBindViewHolder(@NonNull PlanetaVH planetaVH, int i) {
         Planeta p = (Planeta) mListPlaneta.get(i);
         planetaVH.imageView.setImageResource(p.foto);
         planetaVH.tvNome.setText(p.nome);
     }
+
     @Override
     public int getItemCount() {
         return mListPlaneta.size();
     }
+
     public class PlanetaVH extends RecyclerView.ViewHolder {
         TextView tvNome;
         ImageView imageView;

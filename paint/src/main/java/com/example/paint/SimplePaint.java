@@ -15,16 +15,15 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class SimplePaint extends View {
-    public enum Shape {  
-        FINGER, SQUARE, CIRCLE
+    public enum Shape {
+        FINGER, LINE, SQUARE, CIRCLE
     }
     Shape shape = Shape.FINGER;
-    public class CoordenadasTraco {
+    public static class CoordenadasTraco {
         public float InicialX;
         public float InicialY;
     }
     ArrayList<Layer> layers;
-    Layer previewLayer;
     CoordenadasTraco coordenadasTraco;
 
 
@@ -33,9 +32,6 @@ public class SimplePaint extends View {
 
         layers = new ArrayList<Layer>();
         layers.add(new Layer());
-        previewLayer = new Layer();
-        setupLayer(previewLayer);
-        previewLayer.paint.setColor(Color.RED);
         setupLayer(getCurrentLayer());
     }
 
@@ -45,6 +41,10 @@ public class SimplePaint extends View {
         layer.paint.setColor(0xff000000);
         layer.paint.setStyle(Paint.Style.STROKE);
         layer.paint.setStrokeJoin(Paint.Join.ROUND);
+    }
+
+    public Layer getCurrentLayer() {
+        return layers.get(layers.size() - 1);
     }
 
     public void clear() {
@@ -104,16 +104,18 @@ public class SimplePaint extends View {
             case MotionEvent.ACTION_MOVE:
                 switch (shape) {
                     case CIRCLE:
-//                        getCurrentLayer().path.reset();
-//                        getCurrentLayer().path.moveTo(coordenadasTraco.InicialX, coordenadasTraco.InicialY);
-//                        previewLayer.clear();
+                        getCurrentLayer().path.reset();
+                        getCurrentLayer().path.addOval(coordenadasTraco.InicialX, coordenadasTraco.InicialY, x, y, Path.Direction.CCW);
 
                         break;
                     case SQUARE:
+                        getCurrentLayer().path.reset();
                         getCurrentLayer().path.addRect(coordenadasTraco.InicialX, coordenadasTraco.InicialY, x, y, Path.Direction.CCW);
                         break;
-                    case FINGER:
-                        getCurrentLayer().path.addRect(x - 30, y - 30, x + 30, y + 30, Path.Direction.CCW);
+                    case LINE:
+                        getCurrentLayer().path.reset();
+                        getCurrentLayer().path.moveTo(coordenadasTraco.InicialX, coordenadasTraco.InicialY);
+                        getCurrentLayer().path.lineTo(x, y);
                         break;
                     default:
                         getCurrentLayer().path.lineTo(x, y);
@@ -127,9 +129,5 @@ public class SimplePaint extends View {
         }
         invalidate();
         return super.onTouchEvent(event);
-    }
-
-    public Layer getCurrentLayer() {
-        return layers.get(layers.size() - 1);
     }
 }
