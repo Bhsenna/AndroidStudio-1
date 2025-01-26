@@ -16,3 +16,4 @@ rootProject.name = "Contador"
 include ':app'
 include ':paint'
 include ':listagem'
+include ':activity'
