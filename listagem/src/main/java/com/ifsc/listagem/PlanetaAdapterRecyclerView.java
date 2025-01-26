@@ -24,7 +24,8 @@ public class PlanetaAdapterRecyclerView extends RecyclerView.Adapter<PlanetaAdap
     }
 
     @Override
-    public PlanetaVH onCreateViewHolder(ViewGroup viewGroup, int i) {
+    @NonNull
+    public PlanetaVH onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = View.inflate(mContext, mResource, null);
         return new PlanetaVH(v);
     }

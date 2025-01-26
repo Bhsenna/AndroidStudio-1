@@ -2,7 +2,6 @@ package com.example.paint;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.Paint;
 import android.util.AttributeSet;
@@ -63,11 +62,6 @@ public class SimplePaint extends View {
     public void changeColor(int color) {
         layers.add(new Layer(getCurrentLayer().paint));
         getCurrentLayer().paint.setColor(color);
-    }
-
-    public void changeStrokeWidth(int width) {
-        layers.add(new Layer(getCurrentLayer().paint));
-        getCurrentLayer().paint.setStrokeWidth(width);
     }
 
     private void addLayer() {
