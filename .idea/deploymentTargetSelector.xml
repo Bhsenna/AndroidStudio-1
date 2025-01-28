@@ -22,10 +22,10 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="AtividadeA">
+      <SelectionState runConfigName="launcher">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="All Tests">
+      <SelectionState runConfigName="taco">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
