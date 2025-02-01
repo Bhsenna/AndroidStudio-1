@@ -3,7 +3,6 @@ package br.ifsc.edu.br.taco;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,7 +33,6 @@ public class AlimentoAdapterRecyclerView extends RecyclerView.Adapter<AlimentoAd
         Alimento a = (Alimento) mListAlimento.get(position);
         holder.textViewNome.setText(a.nome_alimento);
         holder.textViewCategoria.setText(a.categoria);
-        holder.textViewPreparo.setText(a.forma_preparo);
     }
 
     @Override
@@ -45,12 +43,10 @@ public class AlimentoAdapterRecyclerView extends RecyclerView.Adapter<AlimentoAd
     public class AlimentoVH extends RecyclerView.ViewHolder {
         TextView textViewNome;
         TextView textViewCategoria;
-        TextView textViewPreparo;
         public AlimentoVH(@NonNull View itemView) {
             super(itemView);
             textViewNome = itemView.findViewById(R.id.nome_alimento);
             textViewCategoria = itemView.findViewById(R.id.categoria);
-            textViewPreparo = itemView.findViewById(R.id.forma_preparo);
         }
     }
 }

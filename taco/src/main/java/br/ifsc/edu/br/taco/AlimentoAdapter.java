@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,11 +29,9 @@ public class AlimentoAdapter extends ArrayAdapter<Alimento> {
 
         TextView textViewNome = view.findViewById(R.id.nome_alimento);
         TextView textViewCategoria = view.findViewById(R.id.categoria);
-        TextView textViewPreparo = view.findViewById(R.id.forma_preparo);
 
         textViewNome.setText(alimento.nome_alimento);
         textViewCategoria.setText(alimento.categoria);
-        textViewPreparo.setText(alimento.forma_preparo);
         return view;
     }
 }
