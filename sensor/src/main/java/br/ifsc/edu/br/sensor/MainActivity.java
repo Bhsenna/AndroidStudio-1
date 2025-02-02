@@ -1,40 +1,47 @@
 package br.ifsc.edu.br.sensor;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     SensorManager mSensorManager;
-    Sensor mSensorLight;
-    TextView mTvLight;
+    List<Sensor> listSensor;
+    ListView listView;
+    SensorAdapter sensorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTvLight = findViewById(R.id.tvSensorLight);
+        listView = findViewById(R.id.listview_sensors);
 
-        mSensorManager = (SensorManager) getSystemService(getApplicationContext().SENSOR_SERVICE);
-        mSensorLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        mSensorManager.registerListener(this, mSensorLight, SensorManager.SENSOR_DELAY_NORMAL);
+        getApplicationContext();
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        listSensor = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+
+        for (Sensor sensor : listSensor) {
+            mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+        sensorAdapter = new SensorAdapter(this, R.layout.item_lista, listSensor);
+        listView.setAdapter(sensorAdapter);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        int sensorType = event.sensor.getType();
-
-        float currentValue = event.values[0];
-        mTvLight.setText(Float.toString(currentValue));
+        sensorAdapter.atualizaSensores(event.sensor.getType(), event.values[0]);
     }
 
     @Override
