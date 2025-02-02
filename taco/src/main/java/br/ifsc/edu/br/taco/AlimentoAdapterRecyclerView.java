@@ -14,11 +14,16 @@ public class AlimentoAdapterRecyclerView extends RecyclerView.Adapter<AlimentoAd
     Context mContext;
     int mResource;
     List<Alimento> mListAlimento;
+    private OnItemClickListener onItemClickListener;
 
     public AlimentoAdapterRecyclerView(Context context, int resource, List<Alimento> objs) {
         mContext = context;
         mResource = resource;
         mListAlimento = objs;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Alimento alimento);
     }
 
     @NonNull
@@ -33,11 +38,21 @@ public class AlimentoAdapterRecyclerView extends RecyclerView.Adapter<AlimentoAd
         Alimento a = (Alimento) mListAlimento.get(position);
         holder.textViewNome.setText(a.nome_alimento);
         holder.textViewCategoria.setText(a.categoria);
+
+        holder.itemView.setOnClickListener(view -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(a);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mListAlimento.size();
+    }
+
+    public void setOnClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     public class AlimentoVH extends RecyclerView.ViewHolder {
